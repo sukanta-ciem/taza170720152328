@@ -68,6 +68,10 @@ function onDeviceReady(){
 	   }).done(function(){
        	win();
 	   }); 
+    
+    document.addEventListener("backbutton", function (e) {
+        e.preventDefault();
+    }, false );
 }
 
 </script>
