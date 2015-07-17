@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Tazamandi</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+    <script src="cordova.js"></script>
+    <script src="inappbrowser.js"></script>
+<style type="text/css">
+* { margin:0; padding:0;}
+body {
+	background:#fff;
+}
+.body {
+	height: 100%;
+    position: fixed;
+    width: 100%;
+	z-index:-1;
+	background:#fff url(images/bg.jpg) no-repeat center bottom;
+	opacity: 0.4;
+    filter: alpha(opacity=40);
+}
+img {
+	border: none;
+	height: auto;
+	max-width: 100%;
+}
+.main_body {
+    height: 100%;
+    position: fixed;
+    width: 100%;
+}	
+.main_body td{
+    padding:10px;
+}
+</style>
+</head>
+<body onload="testInternet()">
+<div class="body"></div>
+<table class="main_body">
+<tr><td valign="middle" align="center"><img alt="" src="images/logo.png"  /></td></tr>
+</table>
+</body>
+</html>
+<script type="text/javascript">
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function win()
+{
+	setTimeout(function(){ var ref = window.open('http://www.tazamandi.in/application/index.php', '_blank', 'hidden=no'); }, 5000);
+}
+
+function fails()
+{
+	alert("Please Check your Internet Connection!");
+}
+
+function onDeviceReady(){
+    $.ajax({
+         url:"http://www.tazamandi.in/appsajax/check_internet.php",
+         timeout:5000,   //timeout to 5s
+         type: "GET",
+         cache: false,
+		 dataType: 'jsonp'
+       }).fail(function(){
+       	fails();
+	   }).done(function(){
+       	win();
+	   }); 
+}
+
+</script>
